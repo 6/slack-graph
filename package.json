@@ -27,7 +27,6 @@
     "bars": "github:jstrace/bars",
     "body-parser": "^1.15.1",
     "dotenv": "^2.0.0",
-    "express": "^4.13.4",
-    "sparkly": "^3.1.2"
+    "express": "^4.13.4"
   }
 }
