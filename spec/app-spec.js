@@ -75,6 +75,17 @@ describe("app", function() {
         .expect(200, done)
     })
 
+    it("supports floats", function(done) {
+      request(app)
+        .post('/graph')
+        .type('form')
+        .send({token: token, text: 'a,b 1,1.5'})
+        .expect(function(res) {
+          expect(res.body['text']).toContain(' b | ==================== | 1.5')
+        })
+        .expect(200, done)
+    })
+
     it("returns help text if requested", function(done) {
       request(app)
         .post('/graph')

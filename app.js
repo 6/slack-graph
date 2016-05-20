@@ -3,7 +3,7 @@
 const port = process.env.PORT || '3000'
 const express = require('express')
 const bodyParser = require('body-parser')
-const numeral = require('numeral')
+const format = require('format-number')
 const bars = require('./vendor/bars')
 const GraphCommandParser = require('./graph-command-parser')
 
@@ -43,7 +43,7 @@ app.post('/graph', function (req, res) {
 })
 
 function formatNumber (number) {
-  return numeral(number).format('0,0')
+  return format({integerSeparator: ','})(number)
 }
 
 function surroundCodeBlock (text) {
