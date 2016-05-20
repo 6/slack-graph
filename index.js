@@ -5,7 +5,7 @@ const token = process.env.SLACK_COMMAND_TOKEN
 const port = process.env.PORT || '3000'
 const express = require('express')
 const bodyParser = require('body-parser')
-const bars = require('bars')
+const bars = require('./vendor/bars')
 
 let app = express()
 app.use(bodyParser.urlencoded({extended: true}))
