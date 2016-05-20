@@ -1,9 +1,11 @@
+// Source (MIT): https://github.com/jstrace/bars/blob/master/index.js
 
 /**
  * Module dependencies.
  */
 
 var fmt = require('printf');
+var util = require('util');
 
 /**
  * Expose `histogram()`.
@@ -34,7 +36,7 @@ function histogram(data, opts) {
   var data = toArray(data);
   if (opts.sort) data = data.sort(descending);
 
-  var maxKey = max(data.map(function(d){ return d.key.length }));
+  var maxKey = max(data.map(function(d){ return d.key && d.key.length }));
   var maxVal = max(data.map(function(d){ return d.val }));
   var str = '';
 
@@ -47,7 +49,12 @@ function histogram(data, opts) {
     var blank = width - shown
     var bar = Array(shown + 1).join(barc);
     bar += Array(blank + 1).join(' ');
-    str += fmt('  %*s | %s | %s\n', d.key, maxKey, bar, map(d.val));
+    if (d.key === null) {
+      str += fmt('  %s | %s\n', bar, map(d.val));
+    }
+    else {
+      str += fmt('  %*s | %s | %s\n', d.key, maxKey, bar, map(d.val));
+    }
   }
 
   return str;
@@ -80,6 +87,14 @@ function max(data) {
  */
 
 function toArray(obj) {
+  if (util.isArray(obj)) {
+    return obj.map(function(val) {
+      return {
+        key: null,
+        val: val
+      }
+    });
+  }
   return Object.keys(obj).map(function(key){
     return {
       key: key,
