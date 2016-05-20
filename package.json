@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "node_modules/.bin/jasmine-node spec"
+    "test": "standard && node_modules/.bin/jasmine-node spec"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,12 @@
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5",
+    "standard": "^7.1.0",
     "supertest": "^1.2.0"
+  },
+  "standard": {
+    "ignore": [
+      "spec/"
+    ]
   }
 }

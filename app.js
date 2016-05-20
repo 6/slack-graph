@@ -20,34 +20,33 @@ app.post('/graph', function (req, res) {
   let command = new GraphCommandParser(req.body.text)
   if (command.isHelp() || !command.isValid()) {
     res.json({
-      "response_type": "ephemeral",
-      "text": "How to use /graph",
-      "attachments": [
+      'response_type': 'ephemeral',
+      'text': 'How to use /graph',
+      'attachments': [
         {
-          "text": "Type `/graph 1,2,3` to display a simple graph with no labels.\nTo include labels, type `/graph cats,dogs,fish 1,2,3`."
+          'text': 'Type `/graph 1,2,3` to display a simple graph with no labels.\nTo include labels, type `/graph cats,dogs,fish 1,2,3`.'
         }
       ]
     })
-  }
-  else {
+  } else {
     let barChart = bars(command.asBarChartData(), {
-      bar: '=',
+      bar: command.barCharacter,
       width: 20,
       sort: true,
       map: formatNumber
     })
     res.json({
-      response_type: "in_channel",
+      response_type: 'in_channel',
       text: surroundCodeBlock(barChart)
     })
   }
 })
 
-function formatNumber(number) {
+function formatNumber (number) {
   return numeral(number).format('0,0')
 }
 
-function surroundCodeBlock(text) {
+function surroundCodeBlock (text) {
   return '```\n' + text + '```'
 }
 
