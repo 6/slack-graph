@@ -7,7 +7,7 @@ app.set('slackCommandToken', token)
 
 describe("app", function() {
   describe("POST /graph", function() {
-    it("return 400 with no token provided", function(done) {
+    it("returns 400 with no token provided", function(done) {
       request(app)
         .post('/graph')
         .expect(function(res) {
@@ -53,7 +53,7 @@ describe("app", function() {
         .expect(200, done)
     })
 
-    it("return help text if requested", function(done) {
+    it("returns help text if requested", function(done) {
       request(app)
         .post('/graph')
         .type('form')
@@ -65,7 +65,7 @@ describe("app", function() {
         .expect(200, done)
     })
 
-    it("return help text if provided with an invalid command (1)", function(done) {
+    it("returns help text if provided with an invalid command (1)", function(done) {
       request(app)
         .post('/graph')
         .type('form')
@@ -77,7 +77,7 @@ describe("app", function() {
         .expect(200, done)
     })
 
-    it("return help text if provided with an invalid command (2)", function(done) {
+    it("returns help text if provided with an invalid command (2)", function(done) {
       request(app)
         .post('/graph')
         .type('form')
