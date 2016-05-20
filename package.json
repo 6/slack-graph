@@ -1,5 +1,5 @@
 {
-  "name": "slack-graphs",
+  "name": "slack-graph",
   "version": "1.0.0",
   "description": "Graph arbitrary data in Slack with the /graph command",
   "main": "index.js",
@@ -9,20 +9,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/6/slack-graphs"
+    "url": "https://github.com/6/slack-graph"
   },
   "keywords": [
     "slack",
-    "graphs",
-    "visualizations",
+    "graph",
+    "visualization",
+    "command",
     "bot"
   ],
   "author": "Peter Graham",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/6/slack-graphs/issues"
+    "url": "https://github.com/6/slack-graph/issues"
   },
-  "homepage": "https://github.com/6/slack-graphs",
+  "homepage": "https://github.com/6/slack-graph",
   "dependencies": {
     "bars": "github:jstrace/bars",
     "body-parser": "^1.15.1",
