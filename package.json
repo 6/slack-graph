@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/6/slack-graphs",
   "dependencies": {
+    "body-parser": "^1.15.1",
     "dotenv": "^2.0.0",
     "express": "^4.13.4"
   }
