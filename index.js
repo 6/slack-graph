@@ -14,14 +14,20 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.post('/graph', function (req, res, next) {
   if (req.params.token !== token) {
     return res.status(400).send('Invalid token').end()
-  } else if (!req.body || !req.body.text || req.body.text === "help") {
+  }
+  // No text is provided, or user wrote "help"
+  else if (!req.body || !req.body.text || req.body.text === "help") {
     return res.json(usageJson()).end()
   }
   let parts = req.body.text.split(' ')
   let data;
+
+  // Data in the format of "1,2,3"
   if (parts.length === 1) {
     data = parts[0].split(',')
-  } else if (parts.length === 2) {
+  }
+  // Data in the format of "cats,dogs,fish 1,2,3"
+  else if (parts.length === 2) {
     let keys = parts[0].split(',')
     let values = parts[1].split(',')
     if (keys.length > 0 && keys.length === values.length) {
@@ -29,10 +35,10 @@ app.post('/graph', function (req, res, next) {
       keys.forEach(function (key, i) {
         data[key] = values[i]
       })
-    } else {
-      return res.json(usageJson()).end()
     }
-  } else {
+  }
+  // Input text is invalid.
+  if (!data) {
     return res.json(usageJson()).end()
   }
 
