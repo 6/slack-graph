@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/6/slack-graphs",
   "dependencies": {
-    "@slack/client": "^3.1.0",
     "dotenv": "^2.0.0"
   }
 }
