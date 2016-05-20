@@ -18,7 +18,7 @@ app.post('/graph', function (req, res, next) {
     return res.status(400).send('Must specify some numbers').end()
   }
   let data = req.body.text.split(',')
-  res.send(sparkly(data))
+  res.send(chart(data))
 })
 
 console.log("Listening on port: " + port)
