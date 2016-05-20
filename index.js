@@ -30,7 +30,10 @@ app.post('/graph', function (req, res, next) {
   }
   data = data || parts[0].split(',')
 
-  res.send(surroundCodeBlock(bars(data, {bar: '=', width: 20, sort: true})))
+  res.json({
+    response_type: "in_channel",
+    text: surroundCodeBlock(bars(data, {bar: '=', width: 20, sort: true}))
+  })
 })
 
 function surroundCodeBlock(text) {
