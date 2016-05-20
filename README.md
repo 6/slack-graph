@@ -1,4 +1,4 @@
-# slack-graph
+# slack-graph [![CircleCI](https://circleci.com/gh/6/slack-graph.svg?style=svg)](https://circleci.com/gh/6/slack-graph)
 
 slack `/graph` command to graph arbitrary data using ascii bar charts.
 
@@ -17,4 +17,3 @@ slack `/graph` command to graph arbitrary data using ascii bar charts.
      ios | =========            | 25
  desktop | ====                 | 10
 ```
-
