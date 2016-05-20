@@ -11,20 +11,34 @@ let app = express()
 app.use(bodyParser.urlencoded({extended: true}))
 
 // Slack Command API docs: https://api.slack.com/slash-commands
-app.post('/graph', function (req, res, next) {
+app.post('/graph', function (req, res) {
   if (req.body.token !== token) {
     return res.status(400).send('Invalid token').end()
   }
-  // No text is provided, or user wrote "help"
-  else if (!req.body || !req.body.text || req.body.text === "help") {
+  if (req.body.text === "help") {
     return res.json(usageJson()).end()
   }
 
-  let parts = req.body.text.split(' ')
-  let data;
+  let data = getDataFromSlackText(req.body.text)
+  if (!data) {
+    return res.json(usageJson()).end()
+  }
+  res.json({
+    response_type: "in_channel",
+    text: surroundCodeBlock(bars(data, {bar: '=', width: 20, sort: true}))
+  })
+})
+
+function getDataFromSlackText(text) {
+  if (!text) return;
+
+  let parts = text.split(' ')
+  let data
   // Data in the format of "1,2,3"
   if (parts.length === 1) {
-    data = parts[0].split(',').map(function(value) { return parseFloat(value) })
+    data = parts[0].split(',').map(function (value) {
+      return parseFloat(value)
+    })
   }
   // Data in the format of "cats,dogs,fish 1,2,3"
   else if (parts.length === 2) {
@@ -37,17 +51,8 @@ app.post('/graph', function (req, res, next) {
       })
     }
   }
-  // Input text is invalid.
-  if (!data) {
-    return res.json(usageJson()).end()
-  }
-
-  console.log("Attempting to graph " + data.length + " values: " + data);
-  res.json({
-    response_type: "in_channel",
-    text: surroundCodeBlock(bars(data, {bar: '=', width: 20, sort: true}))
-  })
-})
+  return data
+}
 
 function usageJson() {
   return {
