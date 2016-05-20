@@ -19,12 +19,12 @@ app.post('/graph', function (req, res, next) {
   else if (!req.body || !req.body.text || req.body.text === "help") {
     return res.json(usageJson()).end()
   }
+
   let parts = req.body.text.split(' ')
   let data;
-
   // Data in the format of "1,2,3"
   if (parts.length === 1) {
-    data = parts[0].split(',')
+    data = parts[0].split(',').map(function(value) { return parseFloat(value) })
   }
   // Data in the format of "cats,dogs,fish 1,2,3"
   else if (parts.length === 2) {
@@ -33,7 +33,7 @@ app.post('/graph', function (req, res, next) {
     if (keys.length > 0 && keys.length === values.length) {
       data = {}
       keys.forEach(function (key, i) {
-        data[key] = values[i]
+        data[key] = parseFloat(values[i])
       })
     }
   }
@@ -42,6 +42,7 @@ app.post('/graph', function (req, res, next) {
     return res.json(usageJson()).end()
   }
 
+  console.log("Attempting to graph " + data.length + " values: " + data);
   res.json({
     response_type: "in_channel",
     text: surroundCodeBlock(bars(data, {bar: '=', width: 20, sort: true}))
