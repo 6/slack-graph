@@ -5,8 +5,7 @@ const token = process.env.SLACK_COMMAND_TOKEN
 const port = process.env.PORT || '3000'
 const express = require('express')
 const bodyParser = require('body-parser')
-const chart = require('ascii-chart')
-const sparkly = require('sparkly')
+const bars = require('bars')
 
 let app = express()
 app.use(bodyParser.urlencoded({extended: true}))
@@ -17,9 +16,24 @@ app.post('/graph', function (req, res, next) {
   } else if (!req.body || !req.body.text) {
     return res.status(400).send('Must specify some numbers').end()
   }
-  let data = req.body.text.split(',')
-  res.send(chart(data))
+  let parts = req.body.text.split(' ')
+  let data;
+  if (parts.length === 2) {
+    let keys = parts[0].split(',')
+    let values = parts[1].split(',')
+    if (keys.length > 0 && keys.length === values.length) {
+      data = {}
+      keys.forEach(function (key, i) {
+        data[key] = values[i]
+      })
+    }
+  }
+  data = data || parts[0].split(',')
+
+  res.send('```\n' + bars(data) + '```\n')
 })
+
+
 
 console.log("Listening on port: " + port)
 app.listen(port)
