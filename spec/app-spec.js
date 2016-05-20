@@ -40,6 +40,19 @@ describe("app", function() {
         .expect(200, done)
     })
 
+    it("adds comma separators to large numbers", function(done) {
+      request(app)
+        .post('/graph')
+        .type('form')
+        .send({token: token, text: '1000,20000000'})
+        .expect(function(res) {
+          expect(res.body['response_type']).toEqual('in_channel')
+          expect(res.body['text']).toContain('1,000')
+          expect(res.body['text']).toContain('20,000,000')
+        })
+        .expect(200, done)
+    })
+
     it("return help text if requested", function(done) {
       request(app)
         .post('/graph')
