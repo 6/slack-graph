@@ -21,7 +21,7 @@ slack `/graph` command to graph arbitrary data using ascii bar charts.
 ```
 /graph 25,10,54 $
 
- | $$$$$$$$$$$$$$$$$$$$ | 54
- | $$$$$$$$$            | 25
- | $$$$                 | 10
+ $$$$$$$$$$$$$$$$$$$$ | 54
+ $$$$$$$$$            | 25
+ $$$$                 | 10
 ```
