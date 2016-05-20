@@ -50,10 +50,10 @@ function histogram(data, opts) {
     var bar = Array(shown + 1).join(barc);
     bar += Array(blank + 1).join(' ');
     if (d.key === null) {
-      str += fmt('  %s | %s\n', bar, map(d.val));
+      str += fmt(' %s | %s\n', bar, map(d.val));
     }
     else {
-      str += fmt('  %*s | %s | %s\n', d.key, maxKey, bar, map(d.val));
+      str += fmt(' %*s | %s | %s\n', d.key, maxKey, bar, map(d.val));
     }
   }
 
