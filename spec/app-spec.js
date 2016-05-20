@@ -28,7 +28,7 @@ describe("app", function() {
         .expect(200, done)
     })
 
-    it("returns a graph with numbers and lables provided", function(done) {
+    it("returns a graph with numbers and labels provided", function(done) {
       request(app)
         .post('/graph')
         .type('form')
