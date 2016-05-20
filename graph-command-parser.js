@@ -2,6 +2,7 @@
 
 function GraphCommandParser (commandText) {
   this.commandText = commandText
+  this.barCharacter = '='
   if (this.commandText) {
     this.commandParts = this.commandText.split(' ').map(function (part) {
       return part.split(',')
@@ -18,12 +19,20 @@ GraphCommandParser.prototype.isValid = function () {
 }
 
 GraphCommandParser.prototype.asBarChartData = function () {
-  let data
-  if (!this.commandParts) {
+  if (!this.commandParts || this.commandParts.length === 0) {
     // Do nothing if command is invalid
-  } else if (this.commandParts.length === 1) {
+    return
+  }
+
+  let lastPart = this.commandParts[this.commandParts.length - 1]
+  if (lastPart.length === 1 && this.commandParts.length > 1) {
+    this.barCharacter = lastPart
+    this.commandParts.pop()
+  }
+
+  if (this.commandParts.length === 1) {
     // Handle command in the format of '1,2,3'
-    data = this.commandParts[0].map(function (value) {
+    return this.commandParts[0].map(function (value) {
       return parseFloat(value)
     })
   } else if (this.commandParts.length === 2) {
@@ -31,13 +40,13 @@ GraphCommandParser.prototype.asBarChartData = function () {
     let keys = this.commandParts[0]
     let values = this.commandParts[1]
     if (keys.length > 0 && keys.length === values.length) {
-      data = {}
+      let data = {}
       keys.forEach(function (key, i) {
         data[key] = parseFloat(values[i])
       })
+      return data
     }
   }
-  return data
 }
 
 module.exports = GraphCommandParser

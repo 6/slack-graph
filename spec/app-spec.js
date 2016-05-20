@@ -53,6 +53,28 @@ describe("app", function() {
         .expect(200, done)
     })
 
+    it("supports use of other characters for the bar", function(done) {
+      request(app)
+        .post('/graph')
+        .type('form')
+        .send({token: token, text: '1,2,3 *'})
+        .expect(function(res) {
+          expect(res.body['text']).toContain('******************** | 3')
+        })
+        .expect(200, done)
+    })
+
+    it("supports use of other characters for the bar, with labels", function(done) {
+      request(app)
+        .post('/graph')
+        .type('form')
+        .send({token: token, text: 'a,b,c 1,2,3 ~'})
+        .expect(function(res) {
+          expect(res.body['text']).toContain(' c | ~~~~~~~~~~~~~~~~~~~~ | 3')
+        })
+        .expect(200, done)
+    })
+
     it("returns help text if requested", function(done) {
       request(app)
         .post('/graph')
@@ -65,19 +87,7 @@ describe("app", function() {
         .expect(200, done)
     })
 
-    it("returns help text if provided with an invalid command (1)", function(done) {
-      request(app)
-        .post('/graph')
-        .type('form')
-        .send({token: token, text: '1 2 3'})
-        .expect(function(res) {
-          expect(res.body['response_type']).toEqual('ephemeral')
-          expect(res.body['text']).toEqual('How to use /graph')
-        })
-        .expect(200, done)
-    })
-
-    it("returns help text if provided with an invalid command (2)", function(done) {
+    it("returns help text if provided with an invalid command", function(done) {
       request(app)
         .post('/graph')
         .type('form')

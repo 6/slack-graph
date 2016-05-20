@@ -30,7 +30,7 @@ app.post('/graph', function (req, res) {
     })
   } else {
     let barChart = bars(command.asBarChartData(), {
-      bar: '=',
+      bar: command.barCharacter,
       width: 20,
       sort: true,
       map: formatNumber
