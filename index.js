@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 // Slack Command API docs: https://api.slack.com/slash-commands
 app.post('/graph', function (req, res, next) {
-  if (req.params.token !== token) {
+  if (req.body.token !== token) {
     return res.status(400).send('Invalid token').end()
   }
   // No text is provided, or user wrote "help"
