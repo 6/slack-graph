@@ -30,10 +30,8 @@ app.post('/graph', function (req, res, next) {
   }
   data = data || parts[0].split(',')
 
-  res.send('```\n' + bars(data) + '```\n')
+  res.send('```\n' + bars(data, {bar: '=', width: 20, sort: true}) + '```\n')
 })
-
-
 
 console.log("Listening on port: " + port)
 app.listen(port)
