@@ -30,8 +30,12 @@ app.post('/graph', function (req, res, next) {
   }
   data = data || parts[0].split(',')
 
-  res.send('```\n' + bars(data, {bar: '=', width: 20, sort: true}) + '```\n')
+  res.send(surroundCodeBlock(bars(data, {bar: '=', width: 20, sort: true})))
 })
+
+function surroundCodeBlock(text) {
+  return '```\n' + text + '```'
+}
 
 console.log("Listening on port: " + port)
 app.listen(port)
