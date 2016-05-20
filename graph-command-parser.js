@@ -19,14 +19,16 @@ GraphCommandParser.prototype.isValid = function () {
 
 GraphCommandParser.prototype.asBarChartData = function () {
   let data
+  // Do nothing if command is invalid
   if (!this.commandParts) {
-    // Do nothing, command is invalid
   }
+  // Handle command in the format of "1,2,3"
   else if (this.commandParts.length === 1) {
     data = this.commandParts[0].map(function (value) {
       return parseFloat(value)
     })
   }
+  // Handle command in the format of "cats,dogs,fish 1,2,3"
   else if (this.commandParts.length === 2) {
     let keys = this.commandParts[0]
     let values = this.commandParts[1]
