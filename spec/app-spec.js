@@ -86,6 +86,19 @@ describe("app", function() {
         .expect(200, done)
     })
 
+    it("supports negative numbers", function(done) {
+      request(app)
+        .post('/graph')
+        .type('form')
+        .send({token: token, text: 'a,b,c -100,0,100'})
+        .expect(function(res) {
+          expect(res.body['text']).toContain(' c | ==================== | 100')
+          expect(res.body['text']).toContain(' b | ==========           | 0')
+          expect(res.body['text']).toContain(' a |                      | -100')
+        })
+        .expect(200, done)
+    })
+
     it("returns help text if requested", function(done) {
       request(app)
         .post('/graph')

@@ -38,13 +38,14 @@ function histogram(data, opts) {
 
   var maxKey = max(data.map(function(d){ return d.key && d.key.length }));
   var maxVal = max(data.map(function(d){ return d.val }));
+  var minVal = min(data.map(function(d){ return d.val }));
   var str = '';
 
   // blah blah histo
 
   for (var i = 0; i < data.length; i++) {
     var d = data[i];
-    var p = (d.val / maxVal) || 1;
+    var p = ((d.val - minVal) / (maxVal - minVal));
     var shown = Math.round(width * p);
     var blank = width - shown
     var bar = Array(shown + 1).join(barc);
@@ -77,6 +78,16 @@ function max(data) {
 
   for (var i = 1; i < data.length; i++) {
     n = data[i] > n ? data[i] : n;
+  }
+
+  return n;
+}
+
+function min(data) {
+  var n = data[0];
+
+  for (var i = 1; i < data.length; i++) {
+    n = data[i] < n ? data[i] : n;
   }
 
   return n;
