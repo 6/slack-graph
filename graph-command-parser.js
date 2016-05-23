@@ -25,7 +25,7 @@ GraphCommandParser.prototype.asBarChartData = function () {
   }
 
   let lastPart = this.commandParts[this.commandParts.length - 1]
-  if (lastPart.length === 1 && this.commandParts.length > 1) {
+  if (lastPart.length === 1 && lastPart[0].length === 1 && this.commandParts.length > 1) {
     this.barCharacter = lastPart
     this.commandParts.pop()
   }
