@@ -99,6 +99,28 @@ describe("app", function() {
         .expect(200, done)
     })
 
+    it("supports a single label + number", function(done) {
+      request(app)
+        .post('/graph')
+        .type('form')
+        .send({token: token, text: 'level 100'})
+        .expect(function(res) {
+          expect(res.body['text']).toContain(' level | ==================== | 100')
+        })
+        .expect(200, done)
+    })
+
+    it("supports a single label + negative number", function(done) {
+      request(app)
+        .post('/graph')
+        .type('form')
+        .send({token: token, text: 'level -100'})
+        .expect(function(res) {
+          expect(res.body['text']).toContain(' level | ==================== | -100')
+        })
+        .expect(200, done)
+    })
+
     it("returns help text if requested", function(done) {
       request(app)
         .post('/graph')
