@@ -37,8 +37,9 @@ function histogram(data, opts) {
   if (opts.sort) data = data.sort(descending);
 
   var maxKey = max(data.map(function(d){ return d.key && d.key.length }));
-  var maxVal = max(data.map(function(d){ return d.val }));
-  var minVal = min(data.map(function(d){ return d.val }));
+  var values = data.map(function(d){ return d.val });
+  var maxVal = max(values);
+  var minVal = min(values);
   var str = '';
 
   // blah blah histo
