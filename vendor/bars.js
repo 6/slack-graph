@@ -41,7 +41,15 @@ function histogram(data, opts) {
   var maxVal = max(values);
   var minVal = min(values);
   var str = '';
-  var defaultShown = (minVal <= 0 && data.length > 1) ? 0 : 1;
+
+  var defaultShown;
+  if (maxVal === minVal) {
+    defaultShown = width;
+  } else if (minVal <= 0 && data.length > 1) {
+    defaultShown = 0;
+  } else {
+    defaultShown = 1;
+  }
 
   // blah blah histo
 
@@ -49,7 +57,7 @@ function histogram(data, opts) {
     var d = data[i];
     var p = ((d.val - minVal) / (maxVal - minVal));
     var shown;
-    if (p === 0) {
+    if (p === 0 || isNaN(p)) {
       shown = defaultShown;
     } else {
       shown = Math.round(width * p);
