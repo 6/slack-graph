@@ -41,14 +41,19 @@ function histogram(data, opts) {
   var maxVal = max(values);
   var minVal = min(values);
   var str = '';
-  var defaultP = (minVal <= 0 && data.length > 1) ? 0 : 1;
+  var defaultShown = (minVal <= 0 && data.length > 1) ? 0 : 1;
 
   // blah blah histo
 
   for (var i = 0; i < data.length; i++) {
     var d = data[i];
-    var p = ((d.val - minVal) / (maxVal - minVal)) || defaultP;
-    var shown = Math.round(width * p);
+    var p = ((d.val - minVal) / (maxVal - minVal));
+    var shown;
+    if (p === 0) {
+      shown = defaultShown;
+    } else {
+      shown = Math.round(width * p);
+    }
     var blank = width - shown
     var bar = Array(shown + 1).join(barc);
     bar += Array(blank + 1).join(' ');

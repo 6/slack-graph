@@ -24,6 +24,8 @@ describe("app", function() {
         .expect(function(res) {
           expect(res.body['response_type']).toEqual('in_channel')
           expect(res.body['text']).toContain('==================== | 3')
+          expect(res.body['text']).toContain('==========           | 2')
+          expect(res.body['text']).toContain('=                    | 1')
         })
         .expect(200, done)
     })
